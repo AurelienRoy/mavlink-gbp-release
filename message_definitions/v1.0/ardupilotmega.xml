@@ -305,6 +305,14 @@
           <entry name="PID_TUNING_STEER" value="5"></entry>
         </enum>
 
+        <enum name="WALLFOLLOW_STATUS_FLAGS">
+            <entry name="WF_OFF" value="0"> <description>The wall-follow mode has not been activated</description> </entry>
+            <entry name="WF_ON" value="1"> <description>The wall-follow mode is active and running</description> </entry>
+            <entry name="WF_PAUSE_RC_FAILSAFE" value="2"> <description>The wall-follow mode is paused for there is a radio failsafe</description> </entry>
+            <entry name="WF_PAUSE_SONAR_FRONT_UNHEALTHY" value="4"> <description>The wall-follow mode is paused for the front sonar is not healthy</description> </entry>
+            <entry name="WF_PAUSE_WALL_RNG_INVALID" value="8"> <description>Range filter considered the wall range to be invalid</description> </entry>
+         </enum>
+        
       </enums>
 
      <messages>
@@ -899,5 +907,18 @@
       <field name="rpm2" type="float">RPM Sensor2</field>
     </message>
 
+      <!-- Wall Follow mode status -->
+      <message name="WALLFOLLOW_STATUS" id="227">
+        <description>Status of the wall follow function</description>
+            <field type="uint8_t" name="status" enum="WALLFOLLOW_STATUS_FLAGS">Status (see WALLFOLLOW_STATUS_FLAGS enum)</field>
+            <field type="float" name="target_dist">Target dist to wall (cm)</field>
+            <field type="float" name="wall_rng_raw">Sensor dist to wall raw (cm)</field>
+            <field type="float" name="wall_rng_flt">Filtered wall distance (cm)</field>
+            <field type="float" name="target_yaw">Wall yaw normal (deg)</field>
+            <field type="float" name="loiter_pt_x">Loiter target X (m)</field>
+            <field type="float" name="loiter_pt_y">Loiter target Y (m)</field>
+            <field type="float" name="loiter_pt_z">Loiter target Z (m)</field>
+      </message>
+         
      </messages>
 </mavlink>
